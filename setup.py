@@ -10,7 +10,7 @@ setup(
   author = 'Jeff Bingaman',
   author_email = 'bingaman.jeff@gmail.com',
   url = 'https://github.com/uneasyguy/binance_data',
-  download_url = 'https://github.com/uneasyguy/binance_data/archive/v_0.1.1.tar.gz',
+  download_url = 'https://github.com/uneasyguy/binance_data/archive/v0.1.1.tar.gz',
   keywords = ['Binance', 'Cryptocurrency Data', 'OHCLV'],
   install_requires=['python-binance',],
   classifiers=[
