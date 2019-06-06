@@ -172,7 +172,7 @@ class DataClient(object):
 			'var':'taker_buy_base_volume'
 			},
 		'taker_buy_quote_volume':{
-			'title':'Take Buy Quote Asset Volume',
+			'title':'Taker Buy Quote Asset Volume',
 			'var':'taker_buy_quote_volume'
 			},
 		}
