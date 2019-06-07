@@ -5,7 +5,7 @@
 
 ### Installation
 
-binance-data requires [Python](https://www.python.org/) v3.6+ to run.
+binance-data requires [Python](https://www.python.org/) v3.4+ to run.
 
 Install via pip
 
