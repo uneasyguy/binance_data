@@ -1,4 +1,7 @@
 # binance-data
+[![PyPI version](https://badge.fury.io/py/binance-data.svg)](https://badge.fury.io/py/binance-data)
+[![Build Status](https://travis-ci.org/uneasyguy/binance_data.svg?branch=master)](https://travis-ci.org/uneasyguy/binance_data)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/binance-data.svg)
 
 ### Installation
 
