@@ -250,7 +250,10 @@ class DataClient(object):
 			except Exception as e:
 				print (str(e))
 				idx+=1
-			if len(temp_data) < limit:
+			try:
+				if len(temp_data) < limit:
+					break
+			except:
 				break
 		return output_data
 
