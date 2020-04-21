@@ -4,7 +4,7 @@ from setuptools import setup
 setup(
   name = 'binance_data',
   packages = ['binance_data'],
-  version = 'v0.1.2',
+  version = 'v0.1.3',
   license='MIT',
   description = 'Python package to retrieve historical data from Binance',
   author = 'Jeff Bingaman',
