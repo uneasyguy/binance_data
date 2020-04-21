@@ -328,15 +328,16 @@ class DataClient(object):
 						with open(results_csv, 'a') as f:
 								writer = csv.writer(f)
 								writer.writerow(self.titles)
+						if interval in ['1m','3m','5m','15m','30m']:
+							del klines[-1]
 						for y,kline in enumerate(klines):
-							if kline != klines[-1]:
-								self.open_timestamp,self.open_,self.high,self.low,self.close_,self.volume,self.close_timestamp,self.quote_volume,self.total_trades,self.taker_buy_base_volume,self.taker_buy_quote_volume,ignore = kline
-								self.opened = datetime.datetime.utcfromtimestamp(float(self.open_timestamp)/1000).strftime('%Y-%m-%d %H:%M:%S')
-								self.closed = datetime.datetime.utcfromtimestamp(float(self.close_timestamp)/1000).strftime('%Y-%m-%d %H:%M:%S')
-								csv_fields = [getattr(self,field) for field in self.fields]
-								with open(results_csv, 'a') as f:
-									writer = csv.writer(f)
-									writer.writerow(csv_fields)
+							self.open_timestamp,self.open_,self.high,self.low,self.close_,self.volume,self.close_timestamp,self.quote_volume,self.total_trades,self.taker_buy_base_volume,self.taker_buy_quote_volume,ignore = kline
+							self.opened = datetime.datetime.utcfromtimestamp(float(self.open_timestamp)/1000).strftime('%Y-%m-%d %H:%M:%S')
+							self.closed = datetime.datetime.utcfromtimestamp(float(self.close_timestamp)/1000).strftime('%Y-%m-%d %H:%M:%S')
+							csv_fields = [getattr(self,field) for field in self.fields]
+							with open(results_csv, 'a') as f:
+								writer = csv.writer(f)
+								writer.writerow(csv_fields)
 		file_retrevial_info = pair,output_path,interval
 		csv_file_info.append(file_retrevial_info)
 
