@@ -320,7 +320,7 @@ class DataClient(object):
 							csv_day = '0{}'.format(str(date.day))
 						else:
 							csv_day = str(date.day)
-						if int(date.month) in range(1,9):
+						if int(date.month) in range(1,10):
 							csv_month ='{}-0{}-'.format(year,numerical_month)
 						else:
 							csv_month = '{}-{}-'.format(year,numerical_month)
