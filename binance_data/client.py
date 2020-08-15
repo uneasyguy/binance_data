@@ -27,6 +27,7 @@ class DataClient(object):
 		self.fields = ['opened','open_','high','low','close_','volume']
 		self.csv_dates = {}
 		self.progress_statements = False
+		self.futures = kwargs.get("futures",False)
 
 	def os_dir_suffix(self,intended_dir):
 		if self.platform == 'win32':
@@ -39,9 +40,13 @@ class DataClient(object):
 		base_currencies = kwargs.get('base_currencies','')
 		quote_currencies= kwargs.get('quote_currencies','')
 		binance_pairs = list()
+		if not self.futures:
+			all_tickers = binance.client.Client(None,None).get_all_tickers()
+		else:
+			all_tickers = binance.client.Client(None,None).futures_ticker()
 		if base_currencies and quote_currencies:
 			input_pairs = [x+y for x in quote_currencies for y in base_currencies]
-		for x,currency_pair in enumerate(binance.client.Client(None,None).get_all_tickers()):
+		for x,currency_pair in enumerate(all_tickers):
 			if base_currencies and quote_currencies:
 				for pair in input_pairs:
 					if currency_pair['symbol'] == pair.upper():
@@ -73,13 +78,22 @@ class DataClient(object):
 		:type interval: str
 		:return: first valid timestamp
 		"""
-		kline = client.get_klines(
-			symbol=pair,
-			interval=interval,
-			limit=1,
-			startTime=0,
-			endTime=int(time.time() * 1000)
-		)
+		if not self.futures:
+			kline = client.get_klines(
+				symbol=pair,
+				interval=interval,
+				limit=1,
+				startTime=0,
+				endTime=int(time.time() * 1000)
+			)
+		else:
+			kline = client.futures_klines(
+				symbol=pair,
+				interval=interval,
+				limit=1,
+				startTime=0,
+				endTime=int(time.time() * 1000)
+			)
 		return datetime.datetime.fromtimestamp(float(kline[0][0])/1000)
 
 	def process_csv_dates(self,pair,interval,**kwargs):
@@ -238,7 +252,10 @@ class DataClient(object):
 		symbol_existed = False
 		while True:
 			try:
-				temp_data = client.get_klines(symbol=symbol,interval=interval,limit=limit,startTime=start_ts,endTime=end_ts)
+				if not self.futures:
+					temp_data = client.get_klines(symbol=symbol,interval=interval,limit=limit,startTime=start_ts,endTime=end_ts)
+				else:
+					temp_data = client.futures_klines(symbol=symbol,interval=interval,limit=limit,startTime=start_ts,endTime=end_ts)
 				if not symbol_existed and len(temp_data):
 					symbol_existed = True
 				if symbol_existed:
