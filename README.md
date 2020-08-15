@@ -18,8 +18,10 @@ Store data for all available pairs from Binance listing date thru current date t
 ```python
 from binance_data import DataClient
 
-pair_list = DataClient().get_binance_pairs()
-store_data = DataClient().kline_data(pair_list,'1m')
+futures = True
+client = DataClient(futures=futures)
+pair_list = client.get_binance_pairs()
+store_data = client.kline_data(pair_list,'1m')
 ```
 ## Usage:
 ### get_binance_pairs()
